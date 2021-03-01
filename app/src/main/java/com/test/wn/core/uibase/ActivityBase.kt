@@ -85,4 +85,8 @@ abstract class ActivityBase : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+
+    }
+
 }
