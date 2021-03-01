@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.wn.R
 import com.test.wn.core.uibase.FragmentBase
+import com.test.wn.ui.adapter.CoinsListAdapter
 import com.test.wn.ui.viewmodel.CoinsViewModel
+import kotlinx.android.synthetic.main.fragment_coins.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import androidx.lifecycle.Observer
+import com.google.gson.JsonObject
 
 class CoinsFragment: FragmentBase() {
 
@@ -21,23 +24,27 @@ class CoinsFragment: FragmentBase() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.initCoinsList()
         initEvent()
         initObserveViewModel()
     }
 
     override fun initEvent() {
-
+        swrRefreshCoinsList.setOnRefreshListener {
+            viewModel.initCoinsList()
+            swrRefreshCoinsList.isRefreshing = false
+        }
     }
 
     override fun initObserveViewModel() {
-//        viewModel.loading.observe(this, Observer {
-//            if(it) showLoading() else hideLoading()
-//        })
+        viewModel.coinsList.observe(viewLifecycleOwner, Observer { coinsList ->
+            createCoinsList(coinsList)
+        })
     }
 
-//    private fun createAdHocList(adHocList: List<AdHocSub>){
-//        rcvAdhocAssetList.layoutManager = LinearLayoutManager(context)
-//        val adapter = AdHocAssetListAdapter(adHocList)
-//        rcvAdhocAssetList.adapter = adapter
-//    }
+    private fun createCoinsList(coinsList: List<JsonObject>) {
+        val adapter = CoinsListAdapter(requireActivity(), coinsList)
+        rcvCoinsList.adapter = adapter
+    }
+
 }
