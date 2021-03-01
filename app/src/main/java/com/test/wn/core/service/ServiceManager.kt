@@ -10,9 +10,9 @@ object ServiceManager {
 
     private fun createInstance()= BaseService.create()
 
-    fun callServicePost( params: HashMap<String, Any>): Single<JsonObject> {
+    fun callService(): Single<JsonObject> {
         return createInstance().getDataFrom(COINS)
-//            .doOnSuccess { if (!it.success) throw Throwable(it.message) }
+            .doOnSuccess { if (it["status"].asString != "success") throw Throwable() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

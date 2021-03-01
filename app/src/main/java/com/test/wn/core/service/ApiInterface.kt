@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface ApiInterface {
 
-    @POST("{postUrl}")
+    @GET("{postUrl}")
     @Headers("Content-Type: application/json; charset=utf-8")
     fun getDataFrom(@Path("postUrl") postUrl: String): Single<JsonObject>
 
