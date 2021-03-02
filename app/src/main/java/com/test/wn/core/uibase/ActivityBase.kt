@@ -43,13 +43,6 @@ abstract class ActivityBase : AppCompatActivity() {
             commit()
         }
     }
-//    fun replaceFragmentWithNoAnim(resId: Int , fragment: Fragment , tag: String?) {
-//        supportFragmentManager.beginTransaction().apply {
-//            replace(resId, fragment)
-//            addToBackStack(tag)
-//            commit()
-//        }
-//    }
 
     fun addFragment(resId: Int , fragment: Fragment , tag: String?) {
         supportFragmentManager.beginTransaction().apply {

@@ -1,33 +1,33 @@
 package com.test.wn.core.di
 
+import com.test.wn.core.service.BaseService
+import com.test.wn.ui.repo.CoinListRemote
+import com.test.wn.ui.repo.CoinsListRepository
 import com.test.wn.ui.viewmodel.CoinsViewModel
 import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModel
 
-//fun provideApi() = BaseService.create()
-//
-//fun provideGson() = GsonBuilder().create()
+fun provideApi() = BaseService.create()
 
-val model = module {
+val module = module {
     viewModel { CoinsViewModel(get()) }
 }
 
 val repository = module {
-//    factory { DataDropDownRepository(get()) }
+    factory { CoinsListRepository(get()) }
 }
 
 val remote = module {
-//    factory { DataDropDownRemote(get()) }
+    factory { CoinListRemote(get()) }
 }
 
 val networkModule = module {
-//    single { provideGson() }
-//    single { provideApi() }
+    single { provideApi() }
 }
 
 val listModules = listOf(
     repository,
     networkModule,
-    model,
+    module,
     remote
 )
