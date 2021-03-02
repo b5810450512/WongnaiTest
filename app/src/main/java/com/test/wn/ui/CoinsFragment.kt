@@ -52,6 +52,9 @@ class CoinsFragment: FragmentBase() {
     }
 
     override fun initObserveViewModel() {
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+           if(isLoading) showLoading() else hideLoading()
+        })
         viewModel.coinsList.observe(viewLifecycleOwner, Observer { coinsList ->
             createCoinsList(coinsList)
         })
