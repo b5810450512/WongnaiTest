@@ -6,6 +6,8 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.gson.JsonObject
@@ -17,31 +19,63 @@ import org.sufficientlysecure.htmltextview.HtmlFormatter
 import org.sufficientlysecure.htmltextview.HtmlFormatterBuilder
 import org.sufficientlysecure.htmltextview.HtmlResImageGetter
 
-class CoinsListAdapter(private val activity: Activity, private val coinsList: List<JsonObject>): RecyclerView.Adapter<CoinsListAdapter.ViewHolder>() {
+class CoinsListAdapter(private val activity: Activity, private val coinsList: List<JsonObject>): RecyclerView.Adapter<CoinsListAdapter.ViewHolder>(),
+    Filterable {
+
+    var filteredListResult= coinsList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_coins, parent, false))
 
-    override fun getItemCount() = coinsList.size
+    override fun getItemCount() = filteredListResult.size
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val coinsData = coinsList[position]
-
+        val coinsData = filteredListResult[position]
         holder.setCoinDetail(activity, position, coinsData)
+    }
 
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            @SuppressLint("DefaultLocale")
+            override fun performFiltering(charString: CharSequence?): FilterResults {
+                filteredListResult = if (charString.toString().isEmpty()) {
+                    coinsList
+                } else {
+                    val resultList = ArrayList<JsonObject>()
+                    val searchInputString = charString.toString().toLowerCase().trim()
+                    coinsList.forEach {
+                        if(isContain(it,searchInputString)) resultList.add(it)
+                    }
+                    resultList
+                }
+                return FilterResults().apply { values = filteredListResult }
+            }
+
+            override fun publishResults(charSquence: CharSequence?, filterResults: FilterResults?) {
+                filteredListResult = filterResults!!.values as List<JsonObject>
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun isContain(data: JsonObject, searchInputString: String): Boolean {
+        return data["symbol"].asString.toLowerCase().contains(searchInputString) ||
+                data["slug"].asString.toLowerCase().contains(searchInputString) ||
+                data["id"].asString.toLowerCase().contains(searchInputString) ||
+                data["name"].asString.toLowerCase().contains(searchInputString)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val layoutItemNotDivisibleBy5 = itemView.layoutItemNotDivisibleBy5
-        val layoutItemDivisibleBy5 = itemView.layoutItemDivisibleBy5
+        private val layoutItemNotDivisibleBy5 = itemView.layoutItemNotDivisibleBy5
+        private val layoutItemDivisibleBy5 = itemView.layoutItemDivisibleBy5
 
-        val imvCoinsIconNo5 = itemView.imvCoinsIconNo5
-        val tvCoinsNameNo5 = itemView.tvCoinsNameNo5
-        val tvCoinsDescription = itemView.tvCoinsDescription
+        private val imvCoinsIconNo5 = itemView.imvCoinsIconNo5
+        private val tvCoinsNameNo5 = itemView.tvCoinsNameNo5
+        private val tvCoinsDescription = itemView.tvCoinsDescription
 
-        val imvCoinsIcon5 = itemView.imvCoinsIcon5
-        val tvCoinsName5 = itemView.tvCoinsName5
+        private val imvCoinsIcon5 = itemView.imvCoinsIcon5
+        private val tvCoinsName5 = itemView.tvCoinsName5
 
         fun setCoinDetail(activity: Activity, position: Int, coinDetail: JsonObject) {
             val rowNumber = position + 1

@@ -3,7 +3,6 @@ package com.test.wn.ui.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.test.wn.core.livedata.SingleLiveData
 import com.test.wn.core.service.ServiceManager
