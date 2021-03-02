@@ -1,4 +1,4 @@
-package com.test.wn.ui
+package com.test.wn.ui.coins
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import com.google.gson.JsonObject
 import com.test.wn.R
 import com.test.wn.core.uibase.FragmentBase
-import com.test.wn.ui.adapter.CoinsListAdapter
-import com.test.wn.ui.viewmodel.CoinsViewModel
+import com.test.wn.ui.coins.adapter.CoinsListAdapter
+import com.test.wn.ui.coins.viewmodel.CoinsViewModel
 import kotlinx.android.synthetic.main.fragment_coins.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 

@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorLoadingBackground">#77000000</color>
+    <color name="colorSplashScreenBg">#0070a8</color>
 </resources>

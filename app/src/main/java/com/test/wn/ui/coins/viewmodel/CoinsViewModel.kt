@@ -1,10 +1,10 @@
-package com.test.wn.ui.viewmodel
+package com.test.wn.ui.coins.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.test.wn.core.livedata.SingleLiveData
-import com.test.wn.ui.repo.CoinsListRepository
+import com.test.wn.ui.coins.repo.CoinsListRepository
 import kotlinx.coroutines.launch
 
 class CoinsViewModel(private val repo: CoinsListRepository): ViewModel() {

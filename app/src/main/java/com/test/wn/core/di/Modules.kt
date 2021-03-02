@@ -1,9 +1,9 @@
 package com.test.wn.core.di
 
 import com.test.wn.core.service.BaseService
-import com.test.wn.ui.repo.CoinListRemote
-import com.test.wn.ui.repo.CoinsListRepository
-import com.test.wn.ui.viewmodel.CoinsViewModel
+import com.test.wn.ui.coins.repo.CoinListRemote
+import com.test.wn.ui.coins.repo.CoinsListRepository
+import com.test.wn.ui.coins.viewmodel.CoinsViewModel
 import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModel
 

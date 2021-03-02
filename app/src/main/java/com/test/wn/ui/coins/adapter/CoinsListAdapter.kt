@@ -1,4 +1,4 @@
-package com.test.wn.ui.adapter
+package com.test.wn.ui.coins.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity

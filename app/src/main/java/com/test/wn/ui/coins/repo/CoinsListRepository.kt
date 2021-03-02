@@ -1,4 +1,4 @@
-package com.test.wn.ui.repo
+package com.test.wn.ui.coins.repo
 
 import com.google.gson.JsonObject
 import com.test.wn.core.coroutine.BaseRemoteDataSource

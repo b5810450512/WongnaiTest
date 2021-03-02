@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+    <item android:drawable="@color/colorSplashScreenBg" />
+    <item android:gravity="center" >
+        <bitmap android:src="@drawable/icon_wongnai" />
+    </item>
+</layer-list>
